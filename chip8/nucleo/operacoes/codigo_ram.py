@@ -19,9 +19,11 @@ def ler_memoria_ram(ram: RAM, endereço: Union[str, int]) -> str:
         raise Exception("RAM: Endereço inexistente.")
 
     if dado == None:
-        raise Exception("RAM: Endereço vazio")
-
-    return dado
+        raise Exception("RAM: Endereço vazio.")
+    elif isinstance(dado, str):
+        return dado
+    else:
+        raise Exception(f"RAM: Dado '{dado}' desconhecido.")
 
 
 def escrever_na_memoria_ram(ram: RAM, endereco: str, dado: str) -> RAM:

@@ -13,7 +13,7 @@ def ram():
 
 
 @fixture
-def programa() -> Sequence[str]:
+def programa():
     return obter_instrucoes_da_rom(Path("rom/IBM Logo.ch8"))
 
 
@@ -23,5 +23,10 @@ def ram_com_programa_carregada(ram: Dict, programa: Sequence[str]):
 
 
 @fixture
-def registradores() -> REGISTRADORES:
+def registradores():
     return criar_registradores()
+
+
+@fixture
+def registrador_index():
+    return {"i": None}
