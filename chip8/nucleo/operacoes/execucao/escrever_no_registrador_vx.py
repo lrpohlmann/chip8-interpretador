@@ -9,6 +9,19 @@ from chip8.servicos import log_parametros_e_retorno_da_funcao
 
 @log_parametros_e_retorno_da_funcao
 def _escrever_no_registrador_vx(endereco_registrador: str, dado: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str) -> RETORNO_FUNCOES_EXECUCAO:
+    """Escreve um dado no registrador VX.
+
+    Args:
+        endereco_registrador (str): endereço registrador VX.
+        dado (str): dado a ser escrito
+        ram (RAM): memória RAM
+        registradores (REGISTRADORES): Registradores
+        registrador_index (REGISTRADOR_INDEX): Registrador index
+        contador (str): Contador
+
+    Returns:
+        RETORNO_FUNCOES_EXECUCAO
+    """
     registradores_escrito = escrever_registrador(
         registradores, endereco_registrador, dado)
     return ram, registradores_escrito, registrador_index, contador
