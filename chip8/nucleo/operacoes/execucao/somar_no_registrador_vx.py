@@ -9,7 +9,7 @@ from chip8.servicos import log_parametros_e_retorno_da_funcao
 
 
 @log_parametros_e_retorno_da_funcao
-def _somar_no_registrador_vx(endereco_registrador: str, dado_a_somar: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str) -> RETORNO_FUNCOES_EXECUCAO:
+def _somar_no_registrador_vx(endereco_registrador: str, dado_a_somar: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str, pixel_map: PIXEL_MAP) -> RETORNO_FUNCOES_EXECUCAO:
     """Soma o valor dado com o valor escrite no registrador VX.
 
     Args:
@@ -30,4 +30,4 @@ def _somar_no_registrador_vx(endereco_registrador: str, dado_a_somar: str, ram: 
         )
     )
 
-    return ram, registradores_escrito, registrador_index, contador
+    return {"ram": ram, "registradores": registradores_escrito, "registrador_index": registrador_index, "contador": contador, "pixel_map": pixel_map}

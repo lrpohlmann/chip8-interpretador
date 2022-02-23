@@ -30,3 +30,8 @@ def registradores():
 @fixture
 def registrador_index():
     return {"i": None}
+
+
+@fixture
+def pixel_map():
+    return criar_pixel_map()

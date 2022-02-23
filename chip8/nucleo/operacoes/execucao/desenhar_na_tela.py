@@ -24,4 +24,4 @@ def _desenhar_na_tela(endereco_registrador_x: str, endereco_registrador_y: str, 
         ler_registrador(registradores, endereco_registrador_y),
         sprite)
 
-    return ram, registradores, registrador_index, contador, pixel_map
+    return {"ram": ram, "registradores": registradores, "registrador_index": registrador_index, "contador": contador, "pixel_map": pixel_map}
