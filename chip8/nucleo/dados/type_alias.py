@@ -11,7 +11,7 @@ REGISTRADOR_INDEX = TypeVar(
     "REGISTRADOR_INDEX", MutableMapping[Literal["i"], Union[str, None]], Dict[Literal["i"], Union[str, None]])
 INSTRUCOES_CHIP8 = TypeVar(
     "INSTRUCOES_CHIP8", Sequence[str], List[str])
-SPRITE = TypeVar("SPRITE", Sequence[str], List[str])
+SPRITE = Sequence[str]
 PIXEL_MAP_COORDENADA_X = NewType("PIXEL_MAP_COORDENADA_X", int)
 PIXEL_MAP_COORDENADA_Y = NewType("PIXEL_MAP_COORDENADA_Y", int)
 PIXEL_MAP = TypeVar("PIXEL_MAP", MutableMapping[Tuple[PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y], Literal[0, 1]], Dict[Tuple[
