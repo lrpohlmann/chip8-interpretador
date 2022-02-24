@@ -6,3 +6,5 @@ def test_escrever_no_registrador_vx(ram: RAM, registradores: REGISTRADORES, regi
     resultado = _escrever_no_registrador_vx(
         "0", "f", ram, registradores, registrador_index, "200", pixel_map)
     assert resultado["registradores"]['0'] == "f"
+    assert resultado["registrador_index"] == {"i": None}
+    assert resultado["contador"] == "200"

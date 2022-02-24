@@ -2,6 +2,7 @@ from typing import Literal
 from operator import xor
 
 from chip8.nucleo.dados.type_alias import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y, SPRITE
+from chip8.servicos.hexadecimais.conversao import hexadecimal_para_inteiro
 
 
 def _ler_pixel_map(pixel_map: PIXEL_MAP, coord_x: int, coord_y: int) -> Literal[0, 1]:
@@ -34,9 +35,11 @@ def _escrever_pixel_map(pixel_map: PIXEL_MAP, coord_x: int, coord_y: int, dado: 
 
 def inserir_sprite_no_pixel_map(pixel_map: PIXEL_MAP, coord_x_inicial: str, coord_y_inicial: str, sprite: SPRITE) -> PIXEL_MAP:
     for numero_linha_do_sprite, linha_do_sprite in enumerate(sprite):
-        coord_y_onde_inserir = int(coord_y_inicial) + numero_linha_do_sprite
+        coord_y_onde_inserir = hexadecimal_para_inteiro(
+            coord_y_inicial) + numero_linha_do_sprite
         for numero_bit_do_sprite, bit_do_sprite in enumerate(linha_do_sprite):
-            coord_x_onde_inserir = int(coord_x_inicial) + numero_bit_do_sprite
+            coord_x_onde_inserir = hexadecimal_para_inteiro(
+                coord_x_inicial) + numero_bit_do_sprite
             pixel_map = _inserir_bit_como_pixel(
                 pixel_map, coord_x_onde_inserir, coord_y_onde_inserir, int(bit_do_sprite))  # type: ignore
 

@@ -35,3 +35,14 @@ def registrador_index():
 @fixture
 def pixel_map():
     return criar_pixel_map()
+
+
+@fixture
+def contexto_runtime():
+    return {
+        "ram": criar_memoria_ram(),
+        "registradores": criar_registradores(),
+        "registrador_index": criar_registrador_index(),
+        "contador": "200",
+        "pixel_map": criar_pixel_map()
+    }

@@ -1,3 +1,7 @@
+from typing import Callable, Union
+
+from chip8.nucleo.operacoes.type_alias import CONTEXTO_RUNTIME
+
 from chip8.nucleo.operacoes.decodificadores._6XNN import decoder_6XNN
 from chip8.nucleo.operacoes.decodificadores._7XNN import decoder_7XNN
 from chip8.nucleo.operacoes.decodificadores._1NNN import decoder_1NNN
@@ -11,9 +15,12 @@ from chip8.nucleo.operacoes.execucao.escrever_no_registrador_index import _escre
 from chip8.nucleo.operacoes.execucao.desenhar_na_tela import _desenhar_na_tela
 
 
-def decodificar(instrucao):
+def decodificar(instrucao) -> Union[Callable[[CONTEXTO_RUNTIME], CONTEXTO_RUNTIME], None]:
     if instrucao == "00e0":
-        pass
+        def placeholder_func(**kwargs):
+            return kwargs
+
+        return placeholder_func  # type: ignore
 
     elif instrucao[0] == "1":
         return decoder_1NNN(instrucao, _jump)
@@ -31,4 +38,4 @@ def decodificar(instrucao):
         return decoder_DXYN(instrucao, _desenhar_na_tela)
 
     else:
-        pass
+        return None

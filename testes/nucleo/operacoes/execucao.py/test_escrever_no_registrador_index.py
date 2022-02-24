@@ -6,3 +6,6 @@ def test_escrever_no_registrador_index(ram: RAM, registradores: REGISTRADORES, r
     resultado = _escrever_no_registrador_index(
         "300", ram, registradores, registrador_index, "200", pixel_map)
     assert resultado["registrador_index"]["i"] == "300"
+    for k in resultado["registradores"].values():
+        assert k == None
+    assert resultado["contador"] == "200"

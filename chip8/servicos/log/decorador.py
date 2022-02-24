@@ -1,24 +1,29 @@
 from ast import For
 import logging
-from typing import Any, Callable, Dict, Iterable, Sequence
+from typing import Any, Callable, Dict, Iterable, Sequence, TypeVar
 import functools
 import inspect
+from typing_extensions import ParamSpec
 
 from chip8.servicos.log.formatador import formatador_a
 
 logger = logging.getLogger(name="Funções Execução")
 logger.setLevel(logging.NOTSET)
 
+# Aplicando typing no decorador conforme https://rednafi.github.io/reflections/static-typing-python-decorators.html
+P = ParamSpec("P")
+R = TypeVar("R")
 
-def log_parametros_e_retorno_da_funcao(func: Callable):
+
+def log_parametros_e_retorno_da_funcao(func: Callable[P, R]):
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         resultado = func(*args, **kwargs)
 
         logger.debug(_log_str_formato(func.__name__,
                                       _formatar_str_log_parametros(
                                           _associar_argumentos_com_parametros(
-                                              func, args, kwargs), formatador_a
+                                              func, args, kwargs), formatador_a  # type: ignore
                                       ),
                                       _formatar_str_log_resultado(resultado, formatador_a)))
         return resultado

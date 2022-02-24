@@ -1,17 +1,17 @@
 from functools import partial
 from typing import Callable
 
-from chip8.nucleo.operacoes.type_alias import RETORNO_FUNCOES_EXECUCAO
-from chip8.nucleo.dados.type_alias import RAM, REGISTRADORES
+from chip8.nucleo.operacoes.type_alias import CONTEXTO_RUNTIME
+from chip8.nucleo.dados.type_alias import PIXEL_MAP, RAM, REGISTRADOR_INDEX, REGISTRADORES
 
 
-def decoder_7XNN(instrucao: str, func: Callable[[str, str, RAM, REGISTRADORES, str], RETORNO_FUNCOES_EXECUCAO]):
+def decoder_7XNN(instrucao: str, func: Callable[[str, str, RAM, REGISTRADORES, REGISTRADOR_INDEX, str, PIXEL_MAP], CONTEXTO_RUNTIME]):
     """Decodifica a instrução 7XNN - 'Add value to Register VX'.
     Separa o endereço do registrador (X) e o valor a adicionar (NN). Fornece ambos e a função de execução da instrução para um partial.
 
     Args:
         instrucao (str): instrução em formato string.
-        func (Callable[[str, str, RAM, REGISTRADORES, str], RETORNO_FUNCOES_EXECUCAO]): função de execução.
+        func (Callable[[str, str, RAM, REGISTRADORES, str], CONTEXTO_RUNTIME]): função de execução.
 
     Returns:
         Partial: callable pronto para futura execução da instrução.

@@ -1,5 +1,5 @@
 from functools import singledispatch
-from typing import Any, Dict, NoReturn, Union
+from typing import Any, Dict, NoReturn, Optional, Union
 
 from chip8.nucleo.dados.type_alias import DIGITOS_HEXADECIMAIS, REGISTRADOR_INDEX, REGISTRADORES
 from chip8.servicos.hexadecimais.algarismo import SEQUENCIA_ALGARISMOS_HEXADECIMAIS
@@ -23,7 +23,7 @@ def escrever_registrador(registrador: REGISTRADORES, endereco: Union[str, int], 
         raise Exception(f"Registradores: endereço '{endereco}' inexistente.")
 
 
-def ler_registrador_index(r_index: REGISTRADOR_INDEX) -> str:
+def ler_registrador_index(r_index: REGISTRADOR_INDEX) -> Optional[str]:
     return r_index["i"]
 
 

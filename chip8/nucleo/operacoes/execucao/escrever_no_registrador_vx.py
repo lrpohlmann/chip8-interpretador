@@ -1,14 +1,14 @@
 from typing import Dict
 
 from chip8.nucleo.dados.type_alias import PIXEL_MAP, RAM, REGISTRADOR_INDEX, REGISTRADORES
-from chip8.nucleo.operacoes.type_alias import RETORNO_FUNCOES_EXECUCAO
+from chip8.nucleo.operacoes.type_alias import CONTEXTO_RUNTIME
 from chip8.nucleo.operacoes.codigo_registradores import escrever_registrador
 
 from chip8.servicos import log_parametros_e_retorno_da_funcao
 
 
 @log_parametros_e_retorno_da_funcao
-def _escrever_no_registrador_vx(endereco_registrador: str, dado: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str, pixel_map: PIXEL_MAP) -> RETORNO_FUNCOES_EXECUCAO:
+def _escrever_no_registrador_vx(endereco_registrador: str, dado: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str, pixel_map: PIXEL_MAP) -> CONTEXTO_RUNTIME:
     """Escreve um dado no registrador VX.
 
     Args:
@@ -20,7 +20,7 @@ def _escrever_no_registrador_vx(endereco_registrador: str, dado: str, ram: RAM, 
         contador (str): Contador
 
     Returns:
-        RETORNO_FUNCOES_EXECUCAO
+        CONTEXTO_RUNTIME
     """
     registradores_escrito = escrever_registrador(
         registradores, endereco_registrador, dado)

@@ -2,14 +2,14 @@ from typing import Dict
 
 from chip8.nucleo.dados.type_alias import *
 from chip8.nucleo.operacoes.codigo_registradores import ler_registrador, escrever_registrador
-from chip8.nucleo.operacoes.type_alias import RETORNO_FUNCOES_EXECUCAO
+from chip8.nucleo.operacoes.type_alias import CONTEXTO_RUNTIME
 from chip8.servicos.hexadecimais.aritimetica import somar_hexadecimais
 
 from chip8.servicos import log_parametros_e_retorno_da_funcao
 
 
 @log_parametros_e_retorno_da_funcao
-def _somar_no_registrador_vx(endereco_registrador: str, dado_a_somar: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str, pixel_map: PIXEL_MAP) -> RETORNO_FUNCOES_EXECUCAO:
+def _somar_no_registrador_vx(endereco_registrador: str, dado_a_somar: str, ram: RAM, registradores: REGISTRADORES, registrador_index: REGISTRADOR_INDEX, contador: str, pixel_map: PIXEL_MAP) -> CONTEXTO_RUNTIME:
     """Soma o valor dado com o valor escrite no registrador VX.
 
     Args:
@@ -21,7 +21,7 @@ def _somar_no_registrador_vx(endereco_registrador: str, dado_a_somar: str, ram: 
         contador (str): Contador
 
     Returns:
-        RETORNO_FUNCOES_EXECUCAO
+        CONTEXTO_RUNTIME
     """
     registradores_escrito = escrever_registrador(
         registradores, endereco_registrador, somar_hexadecimais(

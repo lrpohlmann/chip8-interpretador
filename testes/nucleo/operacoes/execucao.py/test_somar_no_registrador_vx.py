@@ -7,3 +7,5 @@ def test_somar_no_registrador_vx(ram: RAM, registradores: REGISTRADORES, registr
     resultado = _somar_no_registrador_vx(
         "1", "1", ram, registradores, registrador_index, "200", pixel_map)
     assert resultado["registradores"]["1"] == "2"
+    assert resultado["registrador_index"] == {"i": None}
+    assert resultado["contador"] == "200"
