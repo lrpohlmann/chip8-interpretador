@@ -1,8 +1,7 @@
 from functools import partial
 from typing import Callable
 
-from chip8.nucleo.operacoes.type_alias import CONTEXTO_RUNTIME
-from chip8.nucleo.dados.type_alias import PIXEL_MAP, RAM, REGISTRADOR_INDEX, REGISTRADORES
+from chip8.nucleo.dados.tipos import PIXEL_MAP, RAM, REGISTRADOR_INDEX, REGISTRADORES, CONTEXTO_RUNTIME
 
 
 def decoder_7XNN(instrucao: str, func: Callable[[str, str, RAM, REGISTRADORES, REGISTRADOR_INDEX, str, PIXEL_MAP], CONTEXTO_RUNTIME]):

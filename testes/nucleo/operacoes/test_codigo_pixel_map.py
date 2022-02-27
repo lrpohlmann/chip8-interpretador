@@ -1,4 +1,4 @@
-from chip8.nucleo.dados.type_alias import SPRITE
+from chip8.nucleo.dados.tipos import SPRITE
 from chip8.nucleo.operacoes import inserir_sprite_no_pixel_map
 from chip8.nucleo.dados import criar_pixel_map
 

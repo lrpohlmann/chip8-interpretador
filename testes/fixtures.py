@@ -1,3 +1,4 @@
+from immutables import Map
 from pytest import fixture
 from pathlib import Path
 from typing import Dict, Sequence
@@ -39,10 +40,10 @@ def pixel_map():
 
 @fixture
 def contexto_runtime():
-    return {
+    return Map(**{
         "ram": criar_memoria_ram(),
         "registradores": criar_registradores(),
         "registrador_index": criar_registrador_index(),
         "contador": "200",
         "pixel_map": criar_pixel_map()
-    }
+    })

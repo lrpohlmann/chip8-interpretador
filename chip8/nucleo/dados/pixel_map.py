@@ -1,4 +1,4 @@
-from chip8.nucleo.dados.type_alias import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y
+from chip8.nucleo.dados.tipos import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y
 import itertools
 
 

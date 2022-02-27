@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Sequence
 
-from chip8.nucleo.dados.type_alias import INSTRUCOES_CHIP8
+from chip8.nucleo.dados.tipos import INSTRUCOES_CHIP8
 
 
 def _obter_byte_string_da_rom(caminho: Path) -> bytes:

@@ -1,7 +1,7 @@
 from typing import Literal
 from operator import xor
 
-from chip8.nucleo.dados.type_alias import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y, SPRITE
+from chip8.nucleo.dados.tipos import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y, SPRITE
 from chip8.servicos.hexadecimais.conversao import hexadecimal_para_inteiro
 
 

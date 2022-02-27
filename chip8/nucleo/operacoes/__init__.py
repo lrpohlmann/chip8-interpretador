@@ -6,4 +6,3 @@ from chip8.nucleo.operacoes.codigo_registradores import (
     ler_registrador_index)
 from chip8.nucleo.operacoes.codigo_rom import obter_instrucoes_da_rom
 from chip8.nucleo.operacoes.codigo_pixel_map import inserir_sprite_no_pixel_map
-from chip8.nucleo.operacoes.type_alias import FUNCOES_EXECUCAO, RAM, REGISTRADOR_INDEX, REGISTRADORES, CONTEXTO_RUNTIME

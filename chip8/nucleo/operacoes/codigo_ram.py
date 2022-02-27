@@ -2,7 +2,7 @@ from functools import singledispatch
 from operator import add, eq
 from typing import Any, Dict, Mapping, Sequence, Tuple, TypeVar, Union
 
-from chip8.nucleo.dados.type_alias import RAM
+from chip8.nucleo.dados.tipos import RAM
 from chip8.servicos.hexadecimais.algarismo import \
     SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from chip8.servicos.hexadecimais.aritimetica import somar_hexadecimais

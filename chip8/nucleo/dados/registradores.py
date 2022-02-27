@@ -1,6 +1,6 @@
 from typing import Any, Dict, Literal
 
-from chip8.nucleo.dados.type_alias import REGISTRADOR_INDEX, REGISTRADORES
+from chip8.nucleo.dados.tipos import REGISTRADOR_INDEX, REGISTRADORES
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
 
 
