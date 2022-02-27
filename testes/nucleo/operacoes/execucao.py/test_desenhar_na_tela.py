@@ -9,9 +9,11 @@ def test_desenhar_na_tela(contexto_runtime: CONTEXTO_RUNTIME):
             contexto_runtime.get("registrador_index"), "200")
 
         ram = contexto_runtime.get("ram")
-        ram["200"] = "ff"
-        ram["201"] = "ff"
-        ram["202"] = "ff"
+        with ram.mutate() as mutar_ram:
+            mutar_ram["200"] = "ff"
+            mutar_ram["201"] = "ff"
+            mutar_ram["202"] = "ff"
+            ram = mutar_ram.finish()
         mutacao["ram"] = ram
 
         registradores = contexto_runtime.get("registradores")

@@ -8,7 +8,7 @@ from testes.fixtures import *
 
 def test_ler_ram(ram: RAM):
     dado = "ff"
-    ram[inteiros_para_hexadecimais(1)] = dado
+    ram = ram.set(inteiros_para_hexadecimais(1), dado)
     dado_lido_da_ram_com_hexadecimal = ler_memoria_ram(
         ram, inteiros_para_hexadecimais(1))
     assert eq(dado_lido_da_ram_com_hexadecimal, dado)
@@ -29,7 +29,7 @@ def test_carregar_programa(ram: RAM, programa):
 
 
 def test_escrever_memoria_ram(ram: RAM):
-    escrever_na_memoria_ram(ram, 1, "ff")
+    ram = escrever_na_memoria_ram(ram, 1, "ff")
     assert ram[inteiros_para_hexadecimais(1)] == "ff"
 
 

@@ -1,8 +1,7 @@
 from functools import singledispatch
-from operator import add, eq
-from typing import Any, Dict, Mapping, Sequence, Tuple, TypeVar, Union
-
-from chip8.nucleo.dados.tipos import RAM
+from operator import add
+from typing import Final, Sequence, Tuple, Union
+from chip8.nucleo.dados.tipos import RAM, e_ram
 from chip8.servicos.hexadecimais.algarismo import \
     SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from chip8.servicos.hexadecimais.aritimetica import somar_hexadecimais
@@ -32,17 +31,29 @@ def escrever_na_memoria_ram(ram: RAM, endereco: str, dado: str) -> RAM:
     if (endereco < inteiros_para_hexadecimais(0)) or (endereco > inteiros_para_hexadecimais(4095)):
         raise Exception(f"RAM: Endereço '{endereco}' inexistente.")
 
-    ram[endereco] = dado
-    return ram
+    ram_escrita = ram.set(endereco, dado)
+    if e_ram(ram_escrita):
+        return ram_escrita
+    else:
+        raise Exception()
 
 
 def obter_instrucao_completa_da_memoria_e_incrementar_contador(ram: RAM, contador: str) -> Tuple[str, str]:
     return add(ler_memoria_ram(ram, contador), ler_memoria_ram(ram, somar_hexadecimais(contador, "1"))), somar_hexadecimais(contador, "2")
 
 
-def carregar_programa_na_ram(ram: RAM, instrucoes_bytes: Sequence[str]):
-    for endereco, dado in tuple(zip(range(512, 4095 + 1), instrucoes_bytes)):
-        ram[inteiros_para_hexadecimais(endereco)] = dado
+def carregar_programa_na_ram(ram: RAM, instrucoes_bytes: Sequence[str]) -> RAM:
+    ENDERECO_INICIO_INSTRUCOES: Final = 512  # hexadecimal: 200
+    ENDERECO_MAXIMO_RAM: Final = 4095
+    AGRUPAMENTO_ENDERECO_MEIA_INSTRUCAO: Final = tuple(
+        zip(range(ENDERECO_INICIO_INSTRUCOES, ENDERECO_MAXIMO_RAM + 1), instrucoes_bytes))
+
+    for endereco, meia_instrucao in AGRUPAMENTO_ENDERECO_MEIA_INSTRUCAO:
+        ram = escrever_na_memoria_ram(
+            ram,
+            inteiros_para_hexadecimais(endereco),
+            meia_instrucao
+        )
 
     return ram
 
