@@ -9,16 +9,16 @@ def test_escrever_registrador(registradores: REGISTRADORES):
 
 
 def test_ler_registrador(registradores: REGISTRADORES):
-    registradores[inteiros_para_hexadecimais(0)] = "ff"
+    registradores = registradores.set(inteiros_para_hexadecimais(0), "ff")
     assert ler_registrador(registradores, 0) == "ff"
     assert ler_registrador(registradores, "0") == "ff"
 
 
 def test_ler_registrador_index(registrador_index: REGISTRADOR_INDEX):
-    registrador_index["i"] = "111"
+    registrador_index = registrador_index.set("i", "111")
     assert ler_registrador_index(registrador_index) == '111'
 
 
 def test_escrever_registrador_index(registrador_index: REGISTRADOR_INDEX):
-    escrever_registrador_index(registrador_index, "111")
+    registrador_index = escrever_registrador_index(registrador_index, "111")
     assert registrador_index["i"] == "111"

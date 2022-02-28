@@ -8,10 +8,9 @@ from immutables import Map
 DIGITOS_HEXADECIMAIS = Literal["0", "1", "2", "3", "4",
                                "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
 RAM = NewType("RAM", Map[str, Optional[str]])
-REGISTRADORES = TypeVar(
-    "REGISTRADORES", MutableMapping[str, Union[str, None]], Dict[str, Union[str, None]])
-REGISTRADOR_INDEX = TypeVar(
-    "REGISTRADOR_INDEX", MutableMapping[Literal["i"], Union[str, None]], Dict[Literal["i"], Union[str, None]])
+REGISTRADORES = NewType("REGISTRADORES", Map[str, Optional[str]])
+REGISTRADOR_INDEX = NewType(
+    "REGISTRADOR_INDEX", Map[Literal["i"], Optional[str]])
 CONTADOR = NewType("CONTADOR", str)
 INSTRUCOES_CHIP8 = TypeVar(
     "INSTRUCOES_CHIP8", Sequence[str], List[str])

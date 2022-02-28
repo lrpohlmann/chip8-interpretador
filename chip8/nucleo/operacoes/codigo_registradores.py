@@ -1,8 +1,7 @@
 from functools import singledispatch
-import re
-from typing import Any, Dict, NoReturn, Optional, Union
+from typing import Union
 
-from chip8.nucleo.dados.tipos import DIGITOS_HEXADECIMAIS, REGISTRADOR_INDEX, REGISTRADORES
+from chip8.nucleo.dados.tipos import REGISTRADOR_INDEX, REGISTRADORES, e_registrador, e_registrador_index
 from chip8.servicos.hexadecimais.algarismo import SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
 
@@ -28,11 +27,14 @@ def escrever_registrador(registrador: REGISTRADORES, endereco: Union[str, int], 
     if not isinstance(dado, str):
         raise Exception("REGISTRADORES: valor '{dado}' não suportado.")
 
-    try:
-        registrador[endereco] = dado
-        return registrador
-    except KeyError:
+    if endereco not in registrador.keys():
         raise Exception(f"Registradores: endereço '{endereco}' inexistente.")
+
+    registrador_escrito = registrador.set(endereco, dado)
+    if e_registrador(registrador_escrito):
+        return registrador_escrito
+    else:
+        raise Exception()
 
 
 def ler_registrador_index(r_index: REGISTRADOR_INDEX) -> str:
@@ -50,8 +52,11 @@ def escrever_registrador_index(r_index: REGISTRADOR_INDEX, dado: str) -> REGISTR
     if not isinstance(dado, str):
         raise Exception("REGISTRADOR INDEX: valor '{dado}' não suportado.")
 
-    r_index["i"] = dado
-    return r_index
+    r_index_escrito = r_index.set("i", dado)
+    if e_registrador_index(r_index_escrito):
+        return r_index_escrito
+    else:
+        raise Exception()
 
 
 # TODO: duplicado da RAM

@@ -1,7 +1,7 @@
 from functools import singledispatch
 from operator import add
 from typing import Final, Sequence, Tuple, Union
-from chip8.nucleo.dados.tipos import RAM, e_ram
+from chip8.nucleo.dados.tipos import CONTADOR, RAM, e_ram
 from chip8.servicos.hexadecimais.algarismo import \
     SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from chip8.servicos.hexadecimais.aritimetica import somar_hexadecimais
@@ -38,7 +38,7 @@ def escrever_na_memoria_ram(ram: RAM, endereco: str, dado: str) -> RAM:
         raise Exception()
 
 
-def obter_instrucao_completa_da_memoria_e_incrementar_contador(ram: RAM, contador: str) -> Tuple[str, str]:
+def obter_instrucao_completa_da_memoria_e_incrementar_contador(ram: RAM, contador: str) -> Tuple[str, CONTADOR]:
     return add(ler_memoria_ram(ram, contador), ler_memoria_ram(ram, somar_hexadecimais(contador, "1"))), somar_hexadecimais(contador, "2")
 
 

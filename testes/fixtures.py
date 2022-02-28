@@ -30,7 +30,7 @@ def registradores():
 
 @fixture
 def registrador_index():
-    return {"i": None}
+    return criar_registrador_index()
 
 
 @fixture

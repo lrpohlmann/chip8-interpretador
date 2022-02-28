@@ -17,8 +17,10 @@ def test_desenhar_na_tela(contexto_runtime: CONTEXTO_RUNTIME):
         mutacao["ram"] = ram
 
         registradores = contexto_runtime.get("registradores")
-        registradores["0"] = "0"
-        registradores["1"] = "0"
+        with registradores.mutate() as mutar_registradores:
+            mutar_registradores["0"] = "0"
+            mutar_registradores["1"] = "0"
+            registradores = mutar_registradores.finish()
 
         mutacao["registradores"] = registradores
 
