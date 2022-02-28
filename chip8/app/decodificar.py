@@ -1,5 +1,7 @@
 from typing import Callable, Union
 
+from immutables import Map
+
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
 
 from chip8.nucleo.operacoes.decodificadores._6XNN import decoder_6XNN
@@ -17,10 +19,7 @@ from chip8.nucleo.operacoes.execucao.desenhar_na_tela import _desenhar_na_tela
 
 def decodificar(instrucao: str) -> Callable[[CONTEXTO_RUNTIME], CONTEXTO_RUNTIME]:
     if instrucao == "00e0":
-        def placeholder_func(**kwargs):
-            return kwargs
-
-        return placeholder_func  # type: ignore
+        return None  # type: ignore
 
     elif instrucao[0] == "1":
         return decoder_1NNN(instrucao, _jump)

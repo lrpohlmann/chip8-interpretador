@@ -6,25 +6,28 @@ from chip8.nucleo.dados.registradores import criar_registradores, criar_registra
 from chip8.nucleo.operacoes.codigo_rom import obter_instrucoes_da_rom
 from chip8.nucleo.operacoes.codigo_ram import carregar_programa_na_ram, obter_instrucao_completa_da_memoria_e_incrementar_contador
 from chip8.nucleo.dados.pixel_map import criar_pixel_map
+from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
+from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime
 from chip8.app.decodificar import decodificar
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
 
 
 def ibm():
-    contexto: CONTEXTO_RUNTIME = {
-        "ram": criar_memoria_ram(),
-        "registradores": criar_registradores(),
-        "registrador_index": criar_registrador_index(),
-        "contador": "200",
-        "pixel_map": criar_pixel_map()}
+    contexto: CONTEXTO_RUNTIME = criar_contexto_runtime()
 
     instrucoes = obter_instrucoes_da_rom(Path("rom/IBM Logo.ch8"))
-    contexto["ram"] = carregar_programa_na_ram(contexto["ram"], instrucoes)
+    ram_carregada = carregar_programa_na_ram(
+        ler_contexto_runtime(contexto, "ram"), instrucoes)
+
+    contexto = escrever_contexto_runtime(contexto, "ram", ram_carregada)
+
     while True:
         instrucao, contador = obter_instrucao_completa_da_memoria_e_incrementar_contador(
-            contexto["ram"], contexto["contador"])
+            ler_contexto_runtime(contexto, "ram"),
+            ler_contexto_runtime(contexto, "contador")
+        )
 
-        contexto["contador"] = contador
+        contexto = escrever_contexto_runtime(contexto, "contador", contador)
 
         if len(contexto["registrador_index"].keys()) > 1:
             print("i")
@@ -33,7 +36,7 @@ def ibm():
             print(instrucao)
         execucao = decodificar(instrucao)
         if execucao:
-            contexto = execucao(**contexto)
+            contexto = execucao(contexto)
 
 
 if __name__ == "__main__":
