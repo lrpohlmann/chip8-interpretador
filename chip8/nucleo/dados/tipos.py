@@ -17,8 +17,8 @@ INSTRUCOES_CHIP8 = TypeVar(
 SPRITE = Sequence[str]
 PIXEL_MAP_COORDENADA_X = NewType("PIXEL_MAP_COORDENADA_X", int)
 PIXEL_MAP_COORDENADA_Y = NewType("PIXEL_MAP_COORDENADA_Y", int)
-PIXEL_MAP = TypeVar("PIXEL_MAP", MutableMapping[Tuple[PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y], Literal[0, 1]], Dict[Tuple[
-    PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y], Literal[0, 1]])
+PIXEL_MAP = NewType(
+    "PIXEL_MAP", Map[Tuple[PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y], Literal[0, 1]])
 
 CONTEXTO_RUNTIME_KEYS = Literal["ram", "registradores",
                                 "registrador_index", "contador", "pixel_map"]

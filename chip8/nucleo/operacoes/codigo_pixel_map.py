@@ -1,7 +1,7 @@
 from typing import Literal
 from operator import xor
 
-from chip8.nucleo.dados.tipos import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y, SPRITE
+from chip8.nucleo.dados.tipos import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y, SPRITE, e_pixel_map
 from chip8.servicos.hexadecimais.conversao import hexadecimal_para_inteiro
 
 
@@ -20,14 +20,15 @@ def _ler_pixel_map(pixel_map: PIXEL_MAP, coord_x: int, coord_y: int) -> Literal[
 
 def _escrever_pixel_map(pixel_map: PIXEL_MAP, coord_x: int, coord_y: int, dado: Literal[0, 1]) -> PIXEL_MAP:
     try:
-        pixel_map[
-            (
-                PIXEL_MAP_COORDENADA_X(coord_x),
-                PIXEL_MAP_COORDENADA_Y(coord_y)
-            )
-        ] = dado
-
-        return pixel_map
+        pixel_map_escrito = pixel_map.set(
+            (PIXEL_MAP_COORDENADA_X(coord_x),
+                PIXEL_MAP_COORDENADA_Y(coord_y)),
+            dado
+        )
+        if e_pixel_map(pixel_map_escrito):
+            return pixel_map_escrito
+        else:
+            raise Exception()
     except KeyError:
         raise Exception(
             f"PIXEL MAP: coordenada {(coord_x, coord_y)} de píxel desconhecida.")

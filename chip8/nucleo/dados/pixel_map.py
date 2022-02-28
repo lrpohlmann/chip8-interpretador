@@ -1,4 +1,5 @@
-from chip8.nucleo.dados.tipos import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y
+from immutables import Map
+from chip8.nucleo.dados.tipos import PIXEL_MAP, PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y, e_pixel_map
 import itertools
 
 
@@ -10,4 +11,13 @@ def criar_pixel_map(largura: int = 64, altura: int = 32) -> PIXEL_MAP:
         )
     )]
 
-    return dict([(coord, 0) for coord in coordenadas])
+    with Map().mutate() as map:  # type: ignore
+        for coord in coordenadas:
+            map[coord] = 0
+
+        pixel_map = map.finish()
+
+    if e_pixel_map(pixel_map):
+        return pixel_map
+    else:
+        raise Exception()
