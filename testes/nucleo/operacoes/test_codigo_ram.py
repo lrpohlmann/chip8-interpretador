@@ -29,8 +29,8 @@ def test_carregar_programa(ram: RAM, programa):
 
 
 def test_escrever_memoria_ram(ram: RAM):
-    ram = escrever_na_memoria_ram(ram, 1, "ff")
-    assert ram[inteiros_para_hexadecimais(1)] == "ff"
+    ram = escrever_na_memoria_ram(ram, "1", "ff")
+    assert ram["1"] == "ff"
 
 
 def test_ler_instrucao(programa, ram_com_programa_carregada: RAM):

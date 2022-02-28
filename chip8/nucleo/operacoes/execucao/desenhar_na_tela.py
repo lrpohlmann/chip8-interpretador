@@ -1,3 +1,4 @@
+from typing import Sequence
 from chip8.nucleo.dados.tipos import SPRITE, CONTEXTO_RUNTIME
 from chip8.nucleo.operacoes.codigo_contexto_runtime import escrever_contexto_runtime, ler_contexto_runtime
 from chip8.nucleo.operacoes.codigo_registradores import ler_registrador, ler_registrador_index
@@ -20,13 +21,29 @@ def _desenhar_na_tela(endereco_registrador_x: str, endereco_registrador_y: str, 
     endereco_inicial, endereco_final = _calcular_endereco_inicial_e_final_do_sprite_na_memoria_ram(
         bytes_para_ler_da_memoria_a_partir_do_registrador_index, registrador_index)
 
-    sprite: SPRITE = [validar_binario(hexadecimal_para_binario(
-        ler_memoria_ram(ler_contexto_runtime(contexto_runtime, "ram"), inteiros_para_hexadecimais(endereco)))) for endereco in range(endereco_inicial, endereco_final)]
+    sprite = _formar_sprite(contexto_runtime, endereco_inicial, endereco_final)
 
     pixel_map_desenhado = _produzir_pixel_map(
         endereco_registrador_x, endereco_registrador_y, registradores, pixel_map, sprite)
 
     return escrever_contexto_runtime(contexto_runtime, "pixel_map", pixel_map_desenhado)
+
+
+def _formar_sprite(contexto_runtime, endereco_inicial, endereco_final):
+    dados_hexadecimais_para_formar_sprite = [ler_memoria_ram(
+        ler_contexto_runtime(contexto_runtime, "ram"),
+        inteiros_para_hexadecimais(endereco)) for endereco in range(endereco_inicial, endereco_final)]
+
+    sprite: SPRITE = _tornar_binario_dados_hexadecimais_para_formar_sprite(
+        dados_hexadecimais_para_formar_sprite)
+
+    return sprite
+
+
+def _tornar_binario_dados_hexadecimais_para_formar_sprite(dados: Sequence[str]) -> SPRITE:
+    dados_binarios = [hexadecimal_para_binario(x) for x in dados]
+    validado = [validar_binario(x) for x in dados_binarios]
+    return validado
 
 
 def _produzir_pixel_map(endereco_registrador_x, endereco_registrador_y, registradores, pixel_map, sprite):
@@ -42,8 +59,7 @@ def _produzir_pixel_map(endereco_registrador_x, endereco_registrador_y, registra
 def _calcular_endereco_inicial_e_final_do_sprite_na_memoria_ram(bytes_para_ler_da_memoria_a_partir_do_registrador_index, registrador_index):
     endereco_inicial = hexadecimal_para_inteiro(
         ler_registrador_index(registrador_index))
-    endereco_final = endereco_inicial + \
-        hexadecimal_para_inteiro(
-            bytes_para_ler_da_memoria_a_partir_do_registrador_index) + 1
+    endereco_final = endereco_inicial + hexadecimal_para_inteiro(
+        bytes_para_ler_da_memoria_a_partir_do_registrador_index)
 
     return endereco_inicial, endereco_final

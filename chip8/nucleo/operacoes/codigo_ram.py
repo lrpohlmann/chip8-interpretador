@@ -19,7 +19,7 @@ def ler_memoria_ram(ram: RAM, endereço: Union[str, int]) -> str:
         raise Exception("RAM: Endereço inexistente.")
 
     if dado == None:
-        raise Exception("RAM: Endereço vazio.")
+        raise Exception(f"RAM: Endereço '{endereço}' vazio.")
     elif isinstance(dado, str):
         return dado
     else:

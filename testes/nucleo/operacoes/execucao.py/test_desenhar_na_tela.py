@@ -14,6 +14,18 @@ def test_desenhar_na_tela(contexto_runtime: CONTEXTO_RUNTIME):
             mutar_ram["200"] = "ff"
             mutar_ram["201"] = "ff"
             mutar_ram["202"] = "ff"
+            mutar_ram["203"] = "ff"
+            mutar_ram["204"] = "ff"
+            mutar_ram["205"] = "ff"
+            mutar_ram["206"] = "ff"
+            mutar_ram["207"] = "ff"
+            mutar_ram["208"] = "ff"
+            mutar_ram["209"] = "ff"
+            mutar_ram["20a"] = "ff"
+            mutar_ram["20b"] = "ff"
+            mutar_ram["20c"] = "ff"
+            mutar_ram["20d"] = "ff"
+            mutar_ram["20e"] = "ff"
             ram = mutar_ram.finish()
         mutacao["ram"] = ram
 
@@ -27,10 +39,10 @@ def test_desenhar_na_tela(contexto_runtime: CONTEXTO_RUNTIME):
 
         novo_contexto = mutacao.finish()
 
-    resultado = _desenhar_na_tela("0", "1", "2", novo_contexto)
+    resultado = _desenhar_na_tela("0", "1", "f", novo_contexto)
 
     for x in range(0, 8):
-        for y in range(0, 3):
+        for y in range(0, 15):
             assert resultado["pixel_map"][(x, y)] == 1
             with resultado["pixel_map"].mutate() as mutar_pixel:
                 mutar_pixel.pop((x, y))

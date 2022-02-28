@@ -29,11 +29,10 @@ def ibm():
 
         contexto = escrever_contexto_runtime(contexto, "contador", contador)
 
-        if len(contexto["registrador_index"].keys()) > 1:
-            print("i")
-
         if instrucao[0] == "d":
             print(instrucao)
+        if instrucao[0] == "1":
+            print("")
         execucao = decodificar(instrucao)
         if execucao:
             contexto = execucao(contexto)
