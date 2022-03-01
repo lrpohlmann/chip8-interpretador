@@ -1,6 +1,5 @@
 from chip8.nucleo.operacoes.codigo_ram import (
-    carregar_programa_na_ram, escrever_na_memoria_ram, ler_memoria_ram,
-    obter_instrucao_completa_da_memoria_e_incrementar_contador)
+    carregar_programa_na_ram, escrever_na_memoria_ram, ler_memoria_ram)
 from chip8.nucleo.operacoes.codigo_registradores import (
     escrever_registrador, escrever_registrador_index, ler_registrador,
     ler_registrador_index)

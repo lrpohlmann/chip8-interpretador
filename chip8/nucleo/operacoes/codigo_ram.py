@@ -2,11 +2,12 @@ from functools import singledispatch
 from operator import add
 from typing import Final, Sequence, Tuple, Union
 
-from chip8.nucleo.dados.tipos import CONTADOR, INSTRUCAO_COMPLETA_CHIP8, RAM, e_instrucao, e_ram
+from chip8.nucleo.dados.tipos import CONTADOR, DIGITOS_HEXADECIMAIS, INSTRUCAO_COMPLETA_CHIP8, RAM, e_instrucao, e_ram
 from chip8.servicos.hexadecimais.algarismo import \
     SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from chip8.servicos.hexadecimais.aritimetica import somar_hexadecimais
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
+from chip8.servicos.hexadecimais.conversao import hexadecimal_para_inteiro
 from chip8.nucleo.operacoes.codigo_contador import incrementar_contador_por_dois
 
 
@@ -40,18 +41,6 @@ def escrever_na_memoria_ram(ram: RAM, endereco: str, dado: str) -> RAM:
         raise Exception()
 
 
-def obter_instrucao_completa_da_memoria_e_incrementar_contador(ram: RAM, contador: CONTADOR) -> Tuple[INSTRUCAO_COMPLETA_CHIP8, CONTADOR]:
-
-    instrucao_completa = add(ler_memoria_ram(ram, contador), ler_memoria_ram(
-        ram, somar_hexadecimais(contador, "1")))
-    if not e_instrucao(instrucao_completa):
-        raise Exception(
-            f"Instrução {instrucao_completa} formada não é uma instrução Chip-8 válida.")
-    contador_incrementado = incrementar_contador_por_dois(contador)
-
-    return instrucao_completa, contador_incrementado
-
-
 def carregar_programa_na_ram(ram: RAM, instrucoes_bytes: Sequence[str]) -> RAM:
     ENDERECO_INICIO_INSTRUCOES: Final = 512  # hexadecimal: 200
     ENDERECO_MAXIMO_RAM: Final = 4095
@@ -68,13 +57,26 @@ def carregar_programa_na_ram(ram: RAM, instrucoes_bytes: Sequence[str]) -> RAM:
     return ram
 
 
-@singledispatch
+def ler_ram_no_endereco_fornecido_e_nos_enderecos_n_bytes_a_frente(ram: RAM, endereco: str, n_bytes: int) -> Sequence[str]:
+    return [
+        ler_memoria_ram(
+            ram,
+            somar_hexadecimais(
+                endereco,
+                inteiros_para_hexadecimais(b)
+            )
+        )
+        for b in range(0, n_bytes + 1)
+    ]
+
+
+@ singledispatch
 def _validar_endereco(endereco: object) -> str:
     raise Exception(
         f"RAM: formato do endereço '{type(endereco)}' desconhecido.")
 
 
-@_validar_endereco.register
+@ _validar_endereco.register
 def _string(endereco: str) -> str:
     for caractere in endereco:
         if caractere not in SEQUENCIA_ALGARISMOS_HEXADECIMAIS:
@@ -84,6 +86,6 @@ def _string(endereco: str) -> str:
     return endereco
 
 
-@_validar_endereco.register
+@ _validar_endereco.register
 def _inteiro(endereco: int) -> str:
     return inteiros_para_hexadecimais(endereco)

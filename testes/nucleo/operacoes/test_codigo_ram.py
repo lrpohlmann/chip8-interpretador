@@ -1,7 +1,8 @@
 from operator import eq
 
 from chip8.nucleo.dados.tipos import RAM
-from chip8.nucleo.operacoes.codigo_ram import carregar_programa_na_ram, ler_memoria_ram, escrever_na_memoria_ram, obter_instrucao_completa_da_memoria_e_incrementar_contador
+from chip8.nucleo.operacoes.codigo_ram import carregar_programa_na_ram, ler_memoria_ram, escrever_na_memoria_ram, ler_ram_no_endereco_fornecido_e_nos_enderecos_n_bytes_a_frente
+from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memoria_e_incrementar_contador
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
 from testes.fixtures import *
 
@@ -31,6 +32,18 @@ def test_carregar_programa(ram: RAM, programa):
 def test_escrever_memoria_ram(ram: RAM):
     ram = escrever_na_memoria_ram(ram, "1", "ff")
     assert ram["1"] == "ff"
+
+
+def test_ler_a_frente_memoria_ram(ram: RAM):
+    with ram.mutate() as setup_ram:
+        setup_ram["0"] = "ff"
+        setup_ram["1"] = "aa"
+        setup_ram["2"] = "11"
+        ram = setup_ram.finish()
+
+    resultado = ler_ram_no_endereco_fornecido_e_nos_enderecos_n_bytes_a_frente(
+        ram, "0", 2)
+    assert resultado == ["ff", "aa", "11"]
 
 
 def test_ler_instrucao(programa, ram_com_programa_carregada: RAM):

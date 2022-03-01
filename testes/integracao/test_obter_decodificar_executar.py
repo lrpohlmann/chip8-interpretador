@@ -1,6 +1,8 @@
 from immutables import Map
 from testes.fixtures import contexto_runtime
-from chip8.nucleo.operacoes.codigo_ram import ler_memoria_ram, escrever_na_memoria_ram, obter_instrucao_completa_da_memoria_e_incrementar_contador
+from chip8.nucleo.operacoes.codigo_ram import ler_memoria_ram, escrever_na_memoria_ram
+from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memoria_e_incrementar_contador
+
 from chip8.nucleo.operacoes.codigo_contexto_runtime import escrever_contexto_runtime, ler_contexto_runtime
 from chip8.app.decodificar import decodificar
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
