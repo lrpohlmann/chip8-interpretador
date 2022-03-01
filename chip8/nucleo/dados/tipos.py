@@ -72,7 +72,8 @@ def e_registrador_index(obj: Any) -> TypeGuard[REGISTRADOR_INDEX]:
 
 
 def e_contador(obj: Any) -> TypeGuard[CONTADOR]:
-    return isinstance(obj, str)
+    return all([isinstance(obj, str), all(
+        [(digito in SEQUENCIA_ALGARISMOS_HEXADECIMAIS) for digito in obj])])
 
 
 def e_pixel_map(obj: Any) -> TypeGuard[PIXEL_MAP]:
