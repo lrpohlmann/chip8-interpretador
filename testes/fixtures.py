@@ -46,10 +46,4 @@ def pixel_map():
 
 @fixture
 def contexto_runtime():
-    return Map(**{
-        "ram": criar_memoria_ram(),
-        "registradores": criar_registradores(),
-        "registrador_index": criar_registrador_index(),
-        "contador": criar_contador(),
-        "pixel_map": criar_pixel_map()
-    })
+    return criar_contexto_runtime()

@@ -13,8 +13,8 @@ def test_obter_instrucao(contexto_runtime: CONTEXTO_RUNTIME):
 
         contexto_runtime = c_mutate.finish()
 
-    instrucao, contexto_runtime = obter_instrucao_completa_da_memoria_e_incrementar_contador(
+    contexto_runtime = obter_instrucao_completa_da_memoria_e_incrementar_contador(
         contexto_runtime)
 
-    assert instrucao == "ffff"
+    assert contexto_runtime["ultima_instrucao"] == "ffff"
     assert contexto_runtime["contador"] == "2"
