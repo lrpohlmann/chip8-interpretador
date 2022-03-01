@@ -14,7 +14,7 @@ from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
 
 
 def ibm():
-    contexto: CONTEXTO_RUNTIME = criar_contexto_runtime()
+    contexto = criar_contexto_runtime()
 
     instrucoes = obter_instrucoes_da_rom(Path("rom/IBM Logo.ch8"))
     ram_carregada = carregar_programa_na_ram(
@@ -23,12 +23,8 @@ def ibm():
     contexto = escrever_contexto_runtime(contexto, "ram", ram_carregada)
 
     while True:
-        instrucao, contador = obter_instrucao_completa_da_memoria_e_incrementar_contador(
-            ler_contexto_runtime(contexto, "ram"),
-            ler_contexto_runtime(contexto, "contador")
-        )
-
-        contexto = escrever_contexto_runtime(contexto, "contador", contador)
+        instrucao, contexto = obter_instrucao_completa_da_memoria_e_incrementar_contador(
+            contexto)
 
         if instrucao[0] == "d":
             print(instrucao)
