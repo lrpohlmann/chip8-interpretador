@@ -44,19 +44,3 @@ def test_ler_a_frente_memoria_ram(ram: RAM):
     resultado = ler_ram_no_endereco_fornecido_e_nos_enderecos_n_bytes_a_frente(
         ram, "0", 2)
     assert resultado == ["ff", "aa", "11"]
-
-
-def test_ler_instrucao(programa, ram_com_programa_carregada: RAM):
-    primeira_instrucao = programa[0] + programa[1]
-    primeira_instrucao_obtida, primeiro_contador_incrementado = obter_instrucao_completa_da_memoria_e_incrementar_contador(
-        ram_com_programa_carregada, "200")
-
-    assert eq(primeira_instrucao_obtida, primeira_instrucao)
-    assert eq(primeiro_contador_incrementado, "202")
-
-    segunda_instrucao = programa[2] + programa[3]
-    segunda_instrucao_obtida, segundo_contador_incrementado = obter_instrucao_completa_da_memoria_e_incrementar_contador(
-        ram_com_programa_carregada, primeiro_contador_incrementado)
-
-    assert eq(segunda_instrucao_obtida, segunda_instrucao)
-    assert eq(segundo_contador_incrementado, "204")

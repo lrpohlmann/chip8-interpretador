@@ -22,11 +22,8 @@ def test_obter_decodificar_executar_6XNN(contexto_runtime: CONTEXTO_RUNTIME):
             contexto_runtime, "ram"), "201", "ff")
     )
 
-    instrucao_completa, novo_contador = obter_instrucao_completa_da_memoria_e_incrementar_contador(
-        ler_contexto_runtime(contexto_runtime, "ram"), "200")
-
-    contexto_runtime_com_contador_atualizado = escrever_contexto_runtime(
-        contexto_runtime, "contador", novo_contador)
+    instrucao_completa, contexto_runtime_com_contador_atualizado = obter_instrucao_completa_da_memoria_e_incrementar_contador(
+        contexto_runtime)
 
     func_exec = decodificar(instrucao_completa)
 
