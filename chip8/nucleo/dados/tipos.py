@@ -12,8 +12,9 @@ REGISTRADORES = NewType("REGISTRADORES", Map[str, Optional[str]])
 REGISTRADOR_INDEX = NewType(
     "REGISTRADOR_INDEX", Map[Literal["i"], Optional[str]])
 CONTADOR = NewType("CONTADOR", str)
-INSTRUCOES_CHIP8 = TypeVar(
-    "INSTRUCOES_CHIP8", Sequence[str], List[str])
+INSTRUCAO_COMPLETA_CHIP8 = NewType("INSTRUCAO_COMPLETA_CHIP8", str)
+SEQUENCIA_INSTRUCOES_CHIP8_FRACIONADAS_EM_2BYTES = TypeVar(
+    "SEQUENCIA_INSTRUCOES_CHIP8_FRACIONADAS_EM_2BYTES", Sequence[str], List[str])
 SPRITE = Sequence[str]
 PIXEL_MAP_COORDENADA_X = NewType("PIXEL_MAP_COORDENADA_X", int)
 PIXEL_MAP_COORDENADA_Y = NewType("PIXEL_MAP_COORDENADA_Y", int)
@@ -24,6 +25,11 @@ CONTEXTO_RUNTIME_KEYS = Literal["ram", "registradores",
                                 "registrador_index", "contador", "pixel_map"]
 CONTEXTO_RUNTIME = Map[CONTEXTO_RUNTIME_KEYS,
                        Union[RAM, REGISTRADORES, REGISTRADOR_INDEX, CONTADOR, PIXEL_MAP]]
+
+
+def e_instrucao(obj: Any) -> TypeGuard[INSTRUCAO_COMPLETA_CHIP8]:
+    return all([isinstance(obj, str), len(obj) == 4, all(
+        [(digito in SEQUENCIA_ALGARISMOS_HEXADECIMAIS) for digito in obj])])
 
 
 def e_ram(obj: Any) -> TypeGuard[RAM]:
