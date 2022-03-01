@@ -15,7 +15,7 @@ def test_escrever_runtime(contexto_runtime: CONTEXTO_RUNTIME):
     nova_ram = criar_memoria_ram()
     novo_registradores = criar_registradores()
     novo_registrador_index = criar_registrador_index()
-    novo_contador = "200"
+    novo_contador = criar_contador()
     novo_pixel_map = criar_pixel_map()
     escrever_contexto_runtime(contexto_runtime, "ram", nova_ram)
     escrever_contexto_runtime(

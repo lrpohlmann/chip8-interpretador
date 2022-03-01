@@ -7,6 +7,7 @@ from chip8.servicos.hexadecimais.algarismo import \
     SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from chip8.servicos.hexadecimais.aritimetica import somar_hexadecimais
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
+from chip8.nucleo.operacoes.codigo_contador import incrementar_contador_por_dois
 
 
 def ler_memoria_ram(ram: RAM, endereço: Union[str, int]) -> str:
@@ -46,7 +47,7 @@ def obter_instrucao_completa_da_memoria_e_incrementar_contador(ram: RAM, contado
     if not e_instrucao(instrucao_completa):
         raise Exception(
             f"Instrução {instrucao_completa} formada não é uma instrução Chip-8 válida.")
-    contador_incrementado = somar_hexadecimais(contador, "2")
+    contador_incrementado = incrementar_contador_por_dois(contador)
 
     return instrucao_completa, contador_incrementado
 
