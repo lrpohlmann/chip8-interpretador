@@ -9,7 +9,7 @@ from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memor
 from chip8.nucleo.dados.pixel_map import criar_pixel_map
 from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
 from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime
-from chip8.app.decodificar import decodificar
+from chip8.nucleo.operacoes.decodificadores.decodificar import decodificar
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
 
 
@@ -23,14 +23,11 @@ def ibm():
     contexto = escrever_contexto_runtime(contexto, "ram", ram_carregada)
 
     while True:
-        instrucao, contexto = obter_instrucao_completa_da_memoria_e_incrementar_contador(
+        contexto = obter_instrucao_completa_da_memoria_e_incrementar_contador(
             contexto)
 
-        if instrucao[0] == "d":
-            print(instrucao)
-        if instrucao[0] == "1":
-            print("")
-        execucao = decodificar(instrucao)
+        contexto = decodificar(contexto)
+        execucao = ler_contexto_runtime(contexto, "ultima_execucao")
         if execucao:
             contexto = execucao(contexto)
 

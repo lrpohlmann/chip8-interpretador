@@ -21,5 +21,10 @@ def criar_contexto_runtime() -> CONTEXTO_RUNTIME:
         registrador_index=registrador_index,
         contador=contador,
         pixel_map=pixel_map,
-        ultima_instrucao=ultima_instrucao
+        ultima_instrucao=ultima_instrucao,
+        ultima_execucao=_placeholder
     )
+
+
+def _placeholder(x: CONTEXTO_RUNTIME) -> CONTEXTO_RUNTIME:
+    return x

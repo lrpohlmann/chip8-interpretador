@@ -1,5 +1,5 @@
 from collections import namedtuple
-from typing import Any, Dict, List, Literal, Mapping, MutableMapping, Optional, Sequence, Tuple, TypeVar, Union, NewType
+from typing import Any, Callable, Dict, List, Literal, Mapping, MutableMapping, Optional, Sequence, Tuple, TypeVar, Union, NewType
 from typing_extensions import TypeGuard
 
 from chip8.servicos.hexadecimais.algarismo import SEQUENCIA_ALGARISMOS_HEXADECIMAIS
@@ -21,10 +21,13 @@ PIXEL_MAP_COORDENADA_Y = NewType("PIXEL_MAP_COORDENADA_Y", int)
 PIXEL_MAP = NewType(
     "PIXEL_MAP", Map[Tuple[PIXEL_MAP_COORDENADA_X, PIXEL_MAP_COORDENADA_Y], Literal[0, 1]])
 
+R = TypeVar("R")
+FUNCOES_EXECUCAO = Callable[[R], R]
+
 CONTEXTO_RUNTIME_KEYS = Literal["ram", "registradores",
-                                "registrador_index", "contador", "pixel_map", "ultima_instrucao"]
+                                "registrador_index", "contador", "pixel_map", "ultima_instrucao", "ultima_execucao"]
 CONTEXTO_RUNTIME = Map[CONTEXTO_RUNTIME_KEYS,
-                       Union[RAM, REGISTRADORES, REGISTRADOR_INDEX, CONTADOR, PIXEL_MAP, INSTRUCAO_COMPLETA_CHIP8]]
+                       Union[RAM, REGISTRADORES, REGISTRADOR_INDEX, CONTADOR, PIXEL_MAP, INSTRUCAO_COMPLETA_CHIP8, FUNCOES_EXECUCAO]]
 
 
 def e_instrucao(obj: Any) -> TypeGuard[INSTRUCAO_COMPLETA_CHIP8]:

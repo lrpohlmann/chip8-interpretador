@@ -21,6 +21,8 @@ def ler_contexto_runtime(contexto: CONTEXTO_RUNTIME, chave: CONTEXTO_RUNTIME_KEY
         return valor
     elif chave == "ultima_instrucao" and e_instrucao(valor):
         return valor
+    elif chave == "ultima_execucao":
+        return valor
     else:
         raise Exception()
 
@@ -37,6 +39,8 @@ def escrever_contexto_runtime(contexto: CONTEXTO_RUNTIME, chave: CONTEXTO_RUNTIM
     elif chave == "pixel_map" and e_pixel_map(valor):
         return contexto.set(chave, valor)
     elif chave == "ultima_instrucao" and e_instrucao(valor):
+        return contexto.set(chave, valor)
+    elif chave == "ultima_execucao":
         return contexto.set(chave, valor)
     else:
         raise Exception()

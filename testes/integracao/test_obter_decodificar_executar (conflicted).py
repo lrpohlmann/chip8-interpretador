@@ -28,10 +28,7 @@ def test_obter_decodificar_executar_6XNN(contexto_runtime: CONTEXTO_RUNTIME):
     contexto_runtime_com_funcao_a_executar = decodificar(
         contexto_runtime_com_contador_atualizado)
 
-    func_exec = ler_contexto_runtime(
-        contexto_runtime_com_funcao_a_executar, "ultima_execucao")
-
-    contexto_runtime_atualizado = func_exec(
+    contexto_runtime_atualizado = ler_contexto_runtime(contexto_runtime_com_funcao_a_executar, "ultima_execucao")(
         contexto_runtime_com_funcao_a_executar)
 
     assert ler_contexto_runtime(
