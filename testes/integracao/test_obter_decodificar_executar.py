@@ -4,6 +4,7 @@ from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memor
 
 from chip8.nucleo.operacoes.codigo_contexto_runtime import escrever_contexto_runtime, ler_contexto_runtime
 from chip8.nucleo.operacoes.decodificadores.decodificar import decodificar
+from chip8.nucleo.operacoes.execucao.execucao import executar
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
 from testes.fixtures import *
 
@@ -28,10 +29,7 @@ def test_obter_decodificar_executar_6XNN(contexto_runtime: CONTEXTO_RUNTIME):
     contexto_runtime_com_funcao_a_executar = decodificar(
         contexto_runtime_com_contador_atualizado)
 
-    func_exec = ler_contexto_runtime(
-        contexto_runtime_com_funcao_a_executar, "ultima_execucao")
-
-    contexto_runtime_atualizado = func_exec(
+    contexto_runtime_atualizado = executar(
         contexto_runtime_com_funcao_a_executar)
 
     assert ler_contexto_runtime(

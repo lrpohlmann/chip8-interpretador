@@ -10,6 +10,7 @@ from chip8.nucleo.dados.pixel_map import criar_pixel_map
 from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
 from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime
 from chip8.nucleo.operacoes.decodificadores.decodificar import decodificar
+from chip8.nucleo.operacoes.execucao.execucao import executar
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
 
 
@@ -27,9 +28,7 @@ def ibm():
             contexto)
 
         contexto = decodificar(contexto)
-        execucao = ler_contexto_runtime(contexto, "ultima_execucao")
-        if execucao:
-            contexto = execucao(contexto)
+        contexto = executar(contexto)
 
 
 if __name__ == "__main__":
