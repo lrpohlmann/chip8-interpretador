@@ -9,8 +9,9 @@ from chip8.nucleo.operacoes.codigo_ram import ler_memoria_ram
 from chip8.servicos.hexadecimais.conversao import hexadecimal_para_binario, hexadecimal_para_inteiro
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
 from chip8.servicos.binarios.validacao import validar_binario
-from chip8.servicos import display
+from chip8.servicos.gui import display
 from chip8.nucleo.operacoes import inserir_sprite_no_pixel_map
+from chip8.servicos.gui.eventos import emitir_evento_atualizar_display
 
 from chip8.servicos import log_parametros_e_retorno_da_funcao
 
@@ -33,7 +34,7 @@ def _desenhar_na_tela(endereco_registrador_x: str, endereco_registrador_y: str, 
     pixel_map_diferenca = _diferenca_pixel_map_novo_e_velho(
         pixel_map_desenhado, pixel_map)
 
-    _desenhar(pixel_map_diferenca)
+    emitir_evento_atualizar_display(pixel_map_diferenca)
 
     return escrever_contexto_runtime(contexto_runtime, "pixel_map", pixel_map_desenhado)
 
@@ -83,17 +84,3 @@ def _diferenca_pixel_map_novo_e_velho(novo: PIXEL_MAP, velho: PIXEL_MAP) -> PIXE
         pixel_map_diferenca = mut.finish()
 
     return pixel_map_diferenca
-
-
-def _desenhar(pixel_map: PIXEL_MAP) -> None:
-    if display.display:
-        for coord, pix in pixel_map.items():
-            x, y = coord
-            if pix == 1:
-                display.desenhar_pixel_branco(x, y)
-            elif pix == 0:
-                display.desenhar_pixel_preto(x, y)
-            else:
-                raise Exception()
-
-            pygame.display.update()

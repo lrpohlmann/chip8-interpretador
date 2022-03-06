@@ -1,7 +1,6 @@
 from pathlib import Path
 import logging
 import os
-from time import sleep
 
 from chip8.nucleo.dados.ram import criar_memoria_ram
 from chip8.nucleo.dados.registradores import criar_registradores, criar_registrador_index
@@ -14,12 +13,15 @@ from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime,
 from chip8.nucleo.operacoes.decodificadores.decodificar import decodificar
 from chip8.nucleo.operacoes.execucao.execucao import executar
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME
-from chip8.servicos import display
+from chip8.servicos.gui import display
+from chip8.app.mainloop import mainloop
 
 
 def ibm():
 
     display.setup_tela()
+    if display.display == None:
+        raise Exception("Display não inicializado")
 
     contexto = criar_contexto_runtime()
 
@@ -30,12 +32,7 @@ def ibm():
     contexto = escrever_contexto_runtime(contexto, "ram", ram_carregada)
 
     while True:
-        sleep(0.1)
-        contexto = obter_instrucao_completa_da_memoria_e_incrementar_contador(
-            contexto)
-
-        contexto = decodificar(contexto)
-        contexto = executar(contexto)
+        mainloop(contexto)
 
 
 if __name__ == "__main__":

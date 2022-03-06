@@ -31,3 +31,7 @@ def _desenhar_pixel(x, y, cor: Tuple[int, int, int]):
             color=cor,
             rect=pygame.rect.Rect(x, y, 1, 1)
         )
+
+
+def atualizar_tela():
+    pygame.display.update()
