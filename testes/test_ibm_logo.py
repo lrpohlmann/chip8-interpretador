@@ -6,7 +6,7 @@ from chip8.nucleo.dados.ram import criar_memoria_ram
 from chip8.nucleo.dados.registradores import criar_registradores, criar_registrador_index
 from chip8.nucleo.operacoes.codigo_rom import obter_instrucoes_da_rom
 from chip8.nucleo.operacoes.codigo_ram import carregar_programa_na_ram
-from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memoria_e_incrementar_contador
+from chip8.nucleo.operacoes.obter.obter import obter
 from chip8.nucleo.dados.pixel_map import criar_pixel_map
 from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
 from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime

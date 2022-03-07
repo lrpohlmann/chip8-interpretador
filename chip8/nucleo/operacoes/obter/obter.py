@@ -6,7 +6,7 @@ from chip8.nucleo.operacoes.codigo_ram import ler_ram_no_endereco_fornecido_e_no
 from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime
 
 
-def obter_instrucao_completa_da_memoria_e_incrementar_contador(contexto_runtime: CONTEXTO_RUNTIME) -> CONTEXTO_RUNTIME:
+def obter(contexto_runtime: CONTEXTO_RUNTIME) -> CONTEXTO_RUNTIME:
     ram = ler_contexto_runtime(contexto_runtime, "ram")
     contador = ler_contexto_runtime(contexto_runtime, "contador")
 

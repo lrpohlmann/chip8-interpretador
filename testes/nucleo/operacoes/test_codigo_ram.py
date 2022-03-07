@@ -2,7 +2,7 @@ from operator import eq
 
 from chip8.nucleo.dados.tipos import RAM
 from chip8.nucleo.operacoes.codigo_ram import carregar_programa_na_ram, ler_memoria_ram, escrever_na_memoria_ram, ler_ram_no_endereco_fornecido_e_nos_enderecos_n_bytes_a_frente
-from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memoria_e_incrementar_contador
+from chip8.nucleo.operacoes.obter.obter import obter
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
 from testes.fixtures import *
 

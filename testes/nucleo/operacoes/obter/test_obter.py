@@ -1,4 +1,4 @@
-from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memoria_e_incrementar_contador
+from chip8.nucleo.operacoes.obter.obter import obter
 from testes.fixtures import *
 
 
@@ -13,7 +13,7 @@ def test_obter_instrucao(contexto_runtime: CONTEXTO_RUNTIME):
 
         contexto_runtime = c_mutate.finish()
 
-    contexto_runtime = obter_instrucao_completa_da_memoria_e_incrementar_contador(
+    contexto_runtime = obter(
         contexto_runtime)
 
     assert contexto_runtime["ultima_instrucao"] == "ffff"

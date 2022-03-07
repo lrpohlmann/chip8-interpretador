@@ -1,6 +1,6 @@
 from immutables import Map
 from chip8.nucleo.operacoes.codigo_ram import escrever_na_memoria_ram
-from chip8.nucleo.operacoes.obter.obter import obter_instrucao_completa_da_memoria_e_incrementar_contador
+from chip8.nucleo.operacoes.obter.obter import obter
 
 from chip8.nucleo.operacoes.codigo_contexto_runtime import escrever_contexto_runtime, ler_contexto_runtime
 from chip8.nucleo.operacoes.decodificadores.decodificar import decodificar
@@ -22,7 +22,7 @@ def test_obter_decodificar_executar_6XNN(contexto_runtime: CONTEXTO_RUNTIME):
             contexto_runtime, "ram"), "201", "ff")
     )
 
-    contexto_runtime_com_contador_atualizado = obter_instrucao_completa_da_memoria_e_incrementar_contador(
+    contexto_runtime_com_contador_atualizado = obter(
         contexto_runtime)
 
     contexto_runtime_com_funcao_a_executar = decodificar(
