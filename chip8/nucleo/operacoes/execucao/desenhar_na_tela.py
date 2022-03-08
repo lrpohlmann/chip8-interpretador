@@ -2,9 +2,9 @@ from typing import Sequence
 import pygame
 
 from immutables import Map
-from chip8.nucleo.dados.tipos import PIXEL_MAP, SPRITE, CONTEXTO_RUNTIME
+from chip8.nucleo.dados.tipos import PIXEL_MAP, REGISTRADORES, SPRITE, CONTEXTO_RUNTIME
 from chip8.nucleo.operacoes.codigo_contexto_runtime import escrever_contexto_runtime, ler_contexto_runtime
-from chip8.nucleo.operacoes.codigo_registradores import ler_registrador, ler_registrador_index
+from chip8.nucleo.operacoes.codigo_registradores import escrever_registrador, ler_registrador, ler_registrador_index
 from chip8.nucleo.operacoes.codigo_ram import ler_memoria_ram
 from chip8.servicos.hexadecimais.conversao import hexadecimal_para_binario, hexadecimal_para_inteiro
 from chip8.servicos.inteiros.conversao import inteiros_para_hexadecimais
@@ -33,6 +33,12 @@ def _desenhar_na_tela(endereco_registrador_x: str, endereco_registrador_y: str, 
 
     pixel_map_diferenca = _diferenca_pixel_map_novo_e_velho(
         pixel_map_desenhado, pixel_map)
+
+    registradores = _escrever_no_registrador_f_se_algum_pixel_passou_de_1_para_0_ou_nao(
+        pixel_map_diferenca, registradores)
+
+    contexto_runtime = escrever_contexto_runtime(
+        contexto_runtime, "registradores", registradores)
 
     emitir_evento_atualizar_display(pixel_map_diferenca)
 
@@ -84,3 +90,10 @@ def _diferenca_pixel_map_novo_e_velho(novo: PIXEL_MAP, velho: PIXEL_MAP) -> PIXE
         pixel_map_diferenca = mut.finish()
 
     return pixel_map_diferenca
+
+
+def _escrever_no_registrador_f_se_algum_pixel_passou_de_1_para_0_ou_nao(diferenca_pixel_map: PIXEL_MAP, registradores: REGISTRADORES) -> REGISTRADORES:
+    if 0 in set(diferenca_pixel_map.values()):
+        return escrever_registrador(registradores, "f", "1")
+    else:
+        return escrever_registrador(registradores, "f", "0")
