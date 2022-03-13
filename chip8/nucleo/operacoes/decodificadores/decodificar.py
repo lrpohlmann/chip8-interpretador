@@ -16,12 +16,13 @@ from chip8.nucleo.operacoes.execucao.somar_no_registrador_vx import _somar_no_re
 from chip8.nucleo.operacoes.execucao.escrever_no_registrador_index import _escrever_no_registrador_index
 from chip8.nucleo.operacoes.execucao.desenhar_na_tela import _desenhar_na_tela
 from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime
+from chip8.nucleo.operacoes.execucao.limpar_tela import limpar_tela
 
 
 def decodificar(contexto_runtime: CONTEXTO_RUNTIME) -> Callable[[CONTEXTO_RUNTIME], CONTEXTO_RUNTIME]:
     instrucao = ler_contexto_runtime(contexto_runtime, "ultima_instrucao")
     if instrucao == "00e0":
-        return contexto_runtime
+        return escrever_contexto_runtime(contexto_runtime, "ultima_execucao", limpar_tela)
 
     elif instrucao[0] == "1":
         return escrever_contexto_runtime(contexto_runtime, "ultima_execucao", decoder_1NNN(instrucao, _jump))

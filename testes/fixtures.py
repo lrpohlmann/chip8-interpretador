@@ -45,5 +45,14 @@ def pixel_map():
 
 
 @fixture
+def pixel_map_totalmente_preenchido(pixel_map):
+    with pixel_map.mutate() as mutar:
+        for coord in pixel_map.keys():
+            mutar[coord] = 1
+
+        return mutar.finish()
+
+
+@fixture
 def contexto_runtime():
     return criar_contexto_runtime()

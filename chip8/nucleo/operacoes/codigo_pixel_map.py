@@ -47,6 +47,19 @@ def inserir_sprite_no_pixel_map(pixel_map: PIXEL_MAP, coord_x_inicial: str, coor
     return pixel_map
 
 
+def zerar_pixel_map(pixel_map: PIXEL_MAP) -> PIXEL_MAP:
+    with pixel_map.mutate() as mutar:
+        for coodernadas in pixel_map.keys():
+            mutar[coodernadas] = 0
+
+        pixel_map_zerado = mutar.finish()
+
+    if e_pixel_map(pixel_map_zerado):
+        return pixel_map_zerado
+    else:
+        raise Exception()
+
+
 def _inserir_bit_como_pixel(pixel_map: PIXEL_MAP, x: int, y: int, bit: Literal[0, 1]) -> PIXEL_MAP:
     pixel: Literal[0, 1] = _xor_pixel_bit(
         _ler_pixel_map(pixel_map, x, y), bit
