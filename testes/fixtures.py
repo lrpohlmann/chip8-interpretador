@@ -96,6 +96,6 @@ def _setup_registradores(chave_valor: Optional[List[Tuple[str, str]]]):
             for chave, valor in chave_valor:
                 mutar[chave] = valor
 
-            registradores = mutar.finish()
+            registradores = mutar.finish()  # type: ignore
 
     return registradores
