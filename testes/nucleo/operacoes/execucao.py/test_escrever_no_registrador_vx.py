@@ -1,5 +1,6 @@
 from testes.fixtures import *
 from chip8.nucleo.operacoes.execucao import _escrever_no_registrador_vx
+from immutables import Map
 
 
 def test_escrever_no_registrador_vx(contexto_runtime):

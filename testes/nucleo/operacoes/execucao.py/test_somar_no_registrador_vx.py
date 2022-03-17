@@ -1,3 +1,4 @@
+from immutables import Map
 from testes.fixtures import *
 from chip8.nucleo.operacoes.execucao import _somar_no_registrador_vx
 from chip8.nucleo.operacoes import escrever_registrador
