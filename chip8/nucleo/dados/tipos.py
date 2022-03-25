@@ -1,3 +1,4 @@
+from ast import Call
 from collections import namedtuple
 from typing import Any, Callable, Dict, List, Literal, Mapping, MutableMapping, Optional, Sequence, Tuple, TypeVar, Union, NewType
 from typing_extensions import TypeGuard
@@ -28,6 +29,8 @@ CONTEXTO_RUNTIME_KEYS = Literal["ram", "registradores",
                                 "registrador_index", "contador", "pixel_map", "ultima_instrucao", "ultima_execucao"]
 CONTEXTO_RUNTIME = Map[CONTEXTO_RUNTIME_KEYS,
                        Union[RAM, REGISTRADORES, REGISTRADOR_INDEX, CONTADOR, PIXEL_MAP, INSTRUCAO_COMPLETA_CHIP8, FUNCOES_EXECUCAO]]
+C = TypeVar("C")
+CONTEXTO_RUNTIME_FUNC_ATUALIZAR = Callable[[C], C]
 
 
 def e_instrucao(obj: Any) -> TypeGuard[INSTRUCAO_COMPLETA_CHIP8]:
