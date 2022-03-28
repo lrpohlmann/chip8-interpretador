@@ -21,3 +21,15 @@ def hexadecimal_bit_xor(hex1: str, hex2: str) -> str:
     int2 = hexadecimal_para_inteiro(hex2)
     xor_bit = int1 ^ int2
     return inteiros_para_hexadecimais(xor_bit)
+
+
+def hexadecimal_bit_right_shift(hex1: str) -> str:
+    int1 = hexadecimal_para_inteiro(hex1)
+    right_shift_bit = int1 >> 1
+    return inteiros_para_hexadecimais(right_shift_bit)
+
+
+def hexadecimal_bit_left_shift(hex1: str) -> str:
+    int1 = hexadecimal_para_inteiro(hex1)
+    left_shift_bit = int1 << 1
+    return inteiros_para_hexadecimais(left_shift_bit)
