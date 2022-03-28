@@ -89,6 +89,11 @@ def _setup_ram(chave_valor: Optional[List[Tuple[str, str]]]):
     return ram
 
 
+@fixture
+def setup_registradores():
+    return _setup_registradores
+
+
 def _setup_registradores(chave_valor: Optional[List[Tuple[str, str]]]):
     registradores = criar_registradores()
     if chave_valor:

@@ -3,11 +3,47 @@ from chip8.servicos.hexadecimais.bitwise import hexadecimal_bit_and, hexadecimal
 
 
 def test_somar():
-    assert somar_hexadecimais("1", "1", "1") == "3"
+    input_e_resultados = [
+        {
+            "input": ["1", "1", "1"],
+            "resultado": "3"
+        },
+        {
+            "input": ["f", "f", "f", "f"],
+            "resultado": "3c"
+        },
+        {
+            "input": ["-3", "1"],
+            "resultado": "-2"
+        }
+    ]
+
+    for _ in input_e_resultados:
+        assert somar_hexadecimais(*_["input"]) == _["resultado"]
 
 
 def test_subtrair():
-    assert subtrair_hexadecimais("4", "3") == "1"
+    input_e_resultados = [
+        {
+            "input": ["1", "1", "1"],
+            "resultado": "-1"
+        },
+        {
+            "input": ["f", "f", "f", "f"],
+            "resultado": "-1e"
+        },
+        {
+            "input": ["-3", "1"],
+            "resultado": "-4"
+        },
+        {
+            "input": ["5", "-1"],
+            "resultado": "6"
+        }
+    ]
+
+    for _ in input_e_resultados:
+        assert subtrair_hexadecimais(*_["input"]) == _["resultado"]
 
 
 def test_or():
