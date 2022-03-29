@@ -1,5 +1,5 @@
-from functools import singledispatch
-from typing import Union
+from functools import reduce, singledispatch
+from typing import Mapping, Union
 
 from chip8.nucleo.dados.tipos import REGISTRADOR_INDEX, REGISTRADORES, e_registrador, e_registrador_index
 from chip8.servicos.hexadecimais.algarismo import SEQUENCIA_ALGARISMOS_HEXADECIMAIS
@@ -35,6 +35,12 @@ def escrever_registrador(registrador: REGISTRADORES, endereco: Union[str, int], 
         return registrador_escrito
     else:
         raise Exception()
+
+
+def escrever_varios_valores_registrador(registrador, par_endereco_valor: Mapping[str, str]) -> REGISTRADORES:
+    registrador_novo = reduce(lambda reg, endereco_valor: escrever_registrador(
+        reg, endereco_valor[0], endereco_valor[1]), par_endereco_valor.items(), registrador)
+    return registrador_novo
 
 
 def ler_registrador_index(r_index: REGISTRADOR_INDEX) -> str:
