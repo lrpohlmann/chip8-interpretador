@@ -11,7 +11,7 @@ from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
 from chip8.nucleo.operacoes.codigo_rom import obter_instrucoes_da_rom
 from chip8.nucleo.dados.contador import criar_contador
 
-from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime
+from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime, escrever_varios_valores_contexto_runtime
 
 
 @fixture
@@ -65,12 +65,16 @@ def contexto_runtime():
 
 @fixture
 def setup_contexto_runtime():
-    def _setup(*, ram: Optional[List[Tuple[str, str]]] = None, registradores: Optional[List[Tuple[str, str]]] = None):
-        contexto_runtime = criar_contexto_runtime()
-        contexto_runtime = escrever_contexto_runtime(
-            contexto_runtime, "ram", _setup_ram(ram))
-        contexto_runtime = escrever_contexto_runtime(
-            contexto_runtime, "registradores", _setup_registradores(registradores))
+    def _setup(*, contador: Optional[CONTADOR] = None, ram: Optional[List[Tuple[str, str]]] = None, registradores: Optional[List[Tuple[str, str]]] = None):
+
+        contexto_runtime = escrever_varios_valores_contexto_runtime(
+            criar_contexto_runtime(),
+            {
+                "ram": _setup_ram(ram),
+                "registradores": _setup_registradores(registradores),
+                "contador": _setup_contador(contador)
+            }
+        )
 
         return contexto_runtime
 
@@ -104,3 +108,11 @@ def _setup_registradores(chave_valor: Optional[List[Tuple[str, str]]]):
             registradores = mutar.finish()  # type: ignore
 
     return registradores
+
+
+def _setup_contador(valor: Optional[CONTADOR] = None):
+    contador = criar_contador()
+    if valor:
+        contador = valor
+
+    return contador
