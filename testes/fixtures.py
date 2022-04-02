@@ -1,3 +1,4 @@
+from pyrsistent import pvector
 from pytest import fixture
 from pathlib import Path
 from typing import List, Optional, Sequence, Tuple
@@ -10,6 +11,7 @@ from chip8.nucleo.dados.pixel_map import criar_pixel_map
 from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
 from chip8.nucleo.operacoes.codigo_rom import obter_instrucoes_da_rom
 from chip8.nucleo.dados.contador import criar_contador
+from chip8.nucleo.dados.call_stack import criar_call_stack
 
 from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime, escrever_varios_valores_contexto_runtime
 
@@ -98,6 +100,11 @@ def setup_registradores():
     return _setup_registradores
 
 
+@fixture
+def setup_call_stack():
+    return _setup_call_stack
+
+
 def _setup_registradores(chave_valor: Optional[List[Tuple[str, str]]]):
     registradores = criar_registradores()
     if chave_valor:
@@ -116,3 +123,10 @@ def _setup_contador(valor: Optional[CONTADOR] = None):
         contador = valor
 
     return contador
+
+
+def _setup_call_stack(conteudo: Optional[Sequence[str]] = None):
+    if conteudo:
+        return pvector(conteudo)
+    else:
+        return criar_call_stack()

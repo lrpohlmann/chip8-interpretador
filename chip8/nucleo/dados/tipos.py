@@ -3,6 +3,8 @@ from collections import namedtuple
 from typing import Any, Callable, Dict, List, Literal, Mapping, MutableMapping, Optional, Sequence, Tuple, TypeVar, Union, NewType
 from typing_extensions import TypeGuard
 
+from pyrsistent.typing import PVector
+
 from chip8.servicos.hexadecimais.algarismo import SEQUENCIA_ALGARISMOS_HEXADECIMAIS
 from immutables import Map
 
@@ -13,6 +15,7 @@ REGISTRADORES = NewType("REGISTRADORES", Map[str, Optional[str]])
 REGISTRADOR_INDEX = NewType(
     "REGISTRADOR_INDEX", Map[Literal["i"], Optional[str]])
 CONTADOR = NewType("CONTADOR", str)
+CALL_STACK = NewType("CALL_STACK", PVector[str])
 INSTRUCAO_COMPLETA_CHIP8 = NewType("INSTRUCAO_COMPLETA_CHIP8", str)
 SEQUENCIA_INSTRUCOES_CHIP8_FRACIONADAS_EM_2BYTES = TypeVar(
     "SEQUENCIA_INSTRUCOES_CHIP8_FRACIONADAS_EM_2BYTES", Sequence[str], List[str])
@@ -96,3 +99,15 @@ def e_pixel_map(obj: Any) -> TypeGuard[PIXEL_MAP]:
     )
 
     return all([keys, valores])
+
+
+def e_call_stack(obj: Any) -> TypeGuard[CALL_STACK]:
+    if isinstance(obj, Sequence):
+        if len(obj) == 0:
+            return True
+        elif all([type(x) == str for x in obj]):
+            return True
+        else:
+            return False
+    else:
+        return False
