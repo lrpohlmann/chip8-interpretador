@@ -1,3 +1,4 @@
+from chip8.servicos import map
 from chip8.nucleo.operacoes.execucao import _desenhar_na_tela
 from chip8.nucleo.operacoes import (
     escrever_na_memoria_ram,
@@ -52,11 +53,11 @@ def test_desenhar_na_tela(contexto_runtime: CONTEXTO_RUNTIME):
     for x in range(0, 8):
         for y in range(0, 15):
             assert resultado["pixel_map"][(x, y)] == 1
-            with resultado["pixel_map"].mutate() as mutar_pixel:
-                mutar_pixel.pop((x, y))
-                resultado = escrever_contexto_runtime(
-                    resultado, "pixel_map", mutar_pixel.finish()
-                )
+            mutar_pixel = resultado["pixel_map"].evolver()
+            mutar_pixel.remove((x, y))
+            resultado = escrever_contexto_runtime(
+                resultado, "pixel_map", mutar_pixel.persistent()
+            )
 
     for i in resultado["pixel_map"].values():
         assert i == 0
@@ -76,12 +77,10 @@ def test_registrador_f_set(contexto_runtime: CONTEXTO_RUNTIME):
         ram = mutar_ram.finish()
     mutacao["ram"] = ram
 
-    pixel_map = contexto_runtime.get("pixel_map")
-    with pixel_map.mutate() as mutar_pixel:
-        for n in range(0, 8):
-            mutar_pixel[(n, 0)] = 1
-        pixel_map = mutar_pixel.finish()
-    mutacao["pixel_map"] = pixel_map
+    mutar_pixel = {}
+    for n in range(0, 8):
+        mutar_pixel[(n, 0)] = 1
+    mutacao["pixel_map"] = map.atualizar(contexto_runtime.get("pixel_map"), mutar_pixel)
 
     registradores = contexto_runtime.get("registradores")
     with registradores.mutate() as mutar_registradores:

@@ -3,17 +3,32 @@ from pytest import fixture
 from pathlib import Path
 from typing import List, Optional, Sequence, Tuple
 
-from chip8.nucleo.dados.tipos import RAM, CONTEXTO_RUNTIME, REGISTRADOR_INDEX, REGISTRADORES, PIXEL_MAP, CONTADOR
+from chip8.servicos import map
+from chip8.nucleo.dados.tipos import (
+    RAM,
+    CONTEXTO_RUNTIME,
+    REGISTRADOR_INDEX,
+    REGISTRADORES,
+    PIXEL_MAP,
+    CONTADOR,
+)
 from chip8.nucleo.operacoes.codigo_ram import carregar_programa_na_ram
 from chip8.nucleo.dados.ram import criar_memoria_ram
-from chip8.nucleo.dados.registradores import criar_registrador_index, criar_registradores
+from chip8.nucleo.dados.registradores import (
+    criar_registrador_index,
+    criar_registradores,
+)
 from chip8.nucleo.dados.pixel_map import criar_pixel_map
 from chip8.nucleo.dados.contexto_runtime import criar_contexto_runtime
 from chip8.nucleo.operacoes.codigo_rom import obter_instrucoes_da_rom
 from chip8.nucleo.dados.contador import criar_contador
 from chip8.nucleo.dados.call_stack import criar_call_stack
 
-from chip8.nucleo.operacoes.codigo_contexto_runtime import ler_contexto_runtime, escrever_contexto_runtime, escrever_varios_valores_contexto_runtime
+from chip8.nucleo.operacoes.codigo_contexto_runtime import (
+    ler_contexto_runtime,
+    escrever_contexto_runtime,
+    escrever_varios_valores_contexto_runtime,
+)
 
 
 @fixture
@@ -53,11 +68,11 @@ def pixel_map():
 
 @fixture
 def pixel_map_totalmente_preenchido(pixel_map):
-    with pixel_map.mutate() as mutar:
-        for coord in pixel_map.keys():
-            mutar[coord] = 1
+    mutar = {}
+    for coord in pixel_map.keys():
+        mutar[coord] = 1
 
-        return mutar.finish()
+    return map.atualizar(pixel_map, mutar)
 
 
 @fixture
@@ -67,15 +82,19 @@ def contexto_runtime():
 
 @fixture
 def setup_contexto_runtime():
-    def _setup(*, contador: Optional[CONTADOR] = None, ram: Optional[List[Tuple[str, str]]] = None, registradores: Optional[List[Tuple[str, str]]] = None):
-
+    def _setup(
+        *,
+        contador: Optional[CONTADOR] = None,
+        ram: Optional[List[Tuple[str, str]]] = None,
+        registradores: Optional[List[Tuple[str, str]]] = None
+    ):
         contexto_runtime = escrever_varios_valores_contexto_runtime(
             criar_contexto_runtime(),
             {
                 "ram": _setup_ram(ram),
                 "registradores": _setup_registradores(registradores),
-                "contador": _setup_contador(contador)
-            }
+                "contador": _setup_contador(contador),
+            },
         )
 
         return contexto_runtime
