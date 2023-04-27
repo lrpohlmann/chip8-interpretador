@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "chip8-interpretador"
+version = "0.1.0"
+description = ""
+authors = ["leonardo <leo.pohlmann@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "chip8_interpretador"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyrsistent = "^0.19.3"
+immutables = "^0.19"
+pygame = "^2.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+black = "^23.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
