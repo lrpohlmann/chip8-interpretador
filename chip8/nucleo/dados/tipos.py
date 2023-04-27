@@ -20,7 +20,7 @@ from typing import (
 from pyrsistent.typing import PVector
 
 from chip8.servicos.hexadecimais.algarismo import SEQUENCIA_ALGARISMOS_HEXADECIMAIS
-from immutables import Map
+from pyrsistent.typing import PMap as Map
 
 DIGITOS_HEXADECIMAIS = Literal[
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"

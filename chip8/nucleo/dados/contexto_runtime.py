@@ -1,8 +1,11 @@
-from immutables import Map
+from pyrsistent import pmap
 from chip8.nucleo.dados.instrucao import criar_instrucao
 from chip8.nucleo.dados.tipos import CONTEXTO_RUNTIME, CONTEXTO_RUNTIME_KEYS, e_ram
 from chip8.nucleo.dados.ram import criar_memoria_ram
-from chip8.nucleo.dados.registradores import criar_registrador_index, criar_registradores
+from chip8.nucleo.dados.registradores import (
+    criar_registrador_index,
+    criar_registradores,
+)
 from chip8.nucleo.dados.pixel_map import criar_pixel_map
 from chip8.nucleo.dados.contador import criar_contador
 
@@ -15,14 +18,16 @@ def criar_contexto_runtime() -> CONTEXTO_RUNTIME:
     contador = criar_contador()
     ultima_instrucao = criar_instrucao("0000")
 
-    return Map(  # type: ignore
-        ram=ram,
-        registradores=registradores,
-        registrador_index=registrador_index,
-        contador=contador,
-        pixel_map=pixel_map,
-        ultima_instrucao=ultima_instrucao,
-        ultima_execucao=_placeholder
+    return pmap(  # type: ignore
+        dict(
+            ram=ram,
+            registradores=registradores,
+            registrador_index=registrador_index,
+            contador=contador,
+            pixel_map=pixel_map,
+            ultima_instrucao=ultima_instrucao,
+            ultima_execucao=_placeholder,
+        )
     )
 
 
