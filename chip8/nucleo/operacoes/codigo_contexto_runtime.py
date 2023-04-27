@@ -1,4 +1,5 @@
 from typing import Any, Mapping, Union
+from chip8.servicos import map
 from chip8.nucleo.dados import e_ram
 from chip8.nucleo.dados.tipos import (
     CONTADOR,
@@ -45,12 +46,7 @@ def escrever_varios_valores_contexto_runtime(
     relacao_chave_valor: Mapping[CONTEXTO_RUNTIME_KEYS, Any],
 ) -> CONTEXTO_RUNTIME:
     _validar_varios_inputs(relacao_chave_valor)
-    mutar_contexto = contexto_runtime.evolver()
-
-    for chave, valor in relacao_chave_valor.items():
-        mutar_contexto[chave] = valor
-
-    novo_contexto = mutar_contexto.persistent()
+    novo_contexto = map.atualizar(contexto_runtime, relacao_chave_valor)
 
     return novo_contexto
 
