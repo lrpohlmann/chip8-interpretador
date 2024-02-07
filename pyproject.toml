@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["leonardo <leo.pohlmann@hotmail.com>"]
 readme = "README.md"
-packages = [{include = "chip8_interpretador"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
