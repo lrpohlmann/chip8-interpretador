@@ -1,5 +1,5 @@
-from chip8.app.setup import setup_mainloop
+from chip8.app import Chip8
 
-if __name__ == "__main__":
-    mainloop = setup_mainloop()
-    mainloop()
+c8 = Chip8()
+c8.carregar_programa("rom/IBM Logo.ch8")
+c8.mainloop()

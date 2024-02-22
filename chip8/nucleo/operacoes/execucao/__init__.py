@@ -1,5 +1,0 @@
-from chip8.nucleo.operacoes.execucao.desenhar_na_tela import _desenhar_na_tela
-from chip8.nucleo.operacoes.execucao.escrever_no_registrador_index import _escrever_no_registrador_index
-from chip8.nucleo.operacoes.execucao.escrever_no_registrador_vx import _escrever_no_registrador_vx
-from chip8.nucleo.operacoes.execucao.jump import _jump
-from chip8.nucleo.operacoes.execucao.somar_no_registrador_vx import _somar_no_registrador_vx

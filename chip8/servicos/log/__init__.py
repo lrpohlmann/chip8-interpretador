@@ -1,1 +1,0 @@
-from chip8.servicos.log.decorador import log_parametros_e_retorno_da_funcao

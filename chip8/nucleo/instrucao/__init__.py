@@ -1,0 +1,24 @@
+from .desenhar_na_tela_DXYN import desenhar_na_tela_DXYN
+from .escrever_no_registrador_index_ANNN import escrever_no_registrador_index_ANNN
+from .escrever_no_registrador_vx_6XNN import escrever_no_registrador_vx_6XNN
+from .jump_1NNN import jump_1NNN
+from .limpar_tela_00e0 import limpar_tela_00e0
+from .somar_no_registrador_vx_7XNN import somar_no_registrador_vx_7XNN
+from .escrever_no_registrador_vx_o_valor_do_registrador_vy_8XY0 import (
+    escrever_no_registrador_vx_o_valor_do_registrador_vy_8XY0,
+)
+from .escrever_no_registrador_vx_o_valor_vx_or_vy_8XY1 import (
+    escrever_no_registrador_vx_o_valor_vx_or_vy_8XY1,
+)
+from .escrever_no_registrador_vx_o_valor_vx_and_vy_8XY2 import (
+    escrever_no_registrador_vx_o_valor_vx_and_vy_8XY2,
+)
+from .escrever_no_registrador_vx_o_valor_vx_xor_vy_8XY3 import (
+    escrever_no_registrador_vx_o_valor_vx_xor_vy_8XY3,
+)
+from .escrever_no_registrador_vx_a_soma_vx_e_vy_e_setar_vf_8XY4 import (
+    escrever_no_registrador_vx_a_soma_vx_e_vy_e_setar_vf_8XY4,
+)
+from .escrever_no_registrador_vx_a_subtracao_entre_vx_vy_e_setar_vf_8XY5 import (
+    escrever_no_registrador_vx_a_subtracao_entre_vx_vy_e_setar_vf_8XY5,
+)
